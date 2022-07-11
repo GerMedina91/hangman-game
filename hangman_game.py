@@ -76,13 +76,17 @@ def getWord():
 
 
 def deleteTildes(s):
-    # -> NFD y eliminar diacríticos
+    """
+    It takes a string, normalizes it to NFD, removes all diacritics, then normalizes it back to NFC
+    
+    :param s: The string to be normalized
+    :return: the normalized string.
+    """
     s = re.sub(
             r"([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+", r"\1", 
             normalize( "NFD", s), 0, re.I
         )
 
-    # -> NFC
     return normalize( 'NFC', s)
 
 
@@ -102,6 +106,15 @@ def lifeCanvasFlow(l):
 
 
 def startGame(g):
+    """
+    It takes a dictionary as an argument, and if the life is 0, it returns, otherwise it checks if the
+    final string is equal to the word, if it is, it sets the win key to true, otherwise it prints the
+    life canvas and the result, then it asks for a letter, and if it's not in the word, it subtracts one
+    from the life, and then it calls itself again
+    
+    :param g: is a dictionary that contains the following:
+    :return: the value of the variable "g"
+    """
     life = g.get("life")
     result = ''.join(g.get("result"))
     final = str(g.get("final")).replace(' ', '')
@@ -146,6 +159,7 @@ def main():
         "final": '',
         "win": False,
     }
+
 
     os.system("cls")
     print(TITLE)
